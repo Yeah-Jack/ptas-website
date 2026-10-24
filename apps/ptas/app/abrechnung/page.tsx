@@ -139,12 +139,12 @@ export default function AbrechnungPage() {
 											Krankentransporte!
 										</span>
 									</p>
-									<Link href="/kontakt">
-										<Button className="mt-4 gap-2">
+									<Button asChild className="mt-4 gap-2">
+										<Link href="/kontakt">
 											<Send className="size-4" />
 											Jetzt beraten lassen
-										</Button>
-									</Link>
+										</Link>
+									</Button>
 								</CardContent>
 							</Card>
 						</FadeInUp>
@@ -334,20 +334,20 @@ export default function AbrechnungPage() {
 						className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4 md:mt-12"
 						delay={0.3}
 					>
-						<Link href="/vorfinanzierung">
-							<Button className="gap-2" variant="outline">
+						<Button asChild className="gap-2" variant="outline">
+							<Link href="/vorfinanzierung">
 								<Banknote className="size-4" />
 								Vorfinanzierung
 								<ArrowRight className="size-4" />
-							</Button>
-						</Link>
-						<Link href="/leistungen">
-							<Button className="gap-2" variant="outline">
+							</Link>
+						</Button>
+						<Button asChild className="gap-2" variant="outline">
+							<Link href="/leistungen">
 								<Package className="size-4" />
 								Leistungs-Pakete
 								<ArrowRight className="size-4" />
-							</Button>
-						</Link>
+							</Link>
+						</Button>
 					</FadeInUp>
 				</div>
 			</section>

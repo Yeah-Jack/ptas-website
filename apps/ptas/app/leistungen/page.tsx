@@ -287,12 +287,12 @@ export default function LeistungenPage() {
 							Haben Sie Fragen?{" "}
 							<span className="font-medium">Melden Sie sich bei uns!</span>
 						</p>
-						<Link href="/kontakt">
-							<Button className="gap-2 sm:ml-4">
+						<Button asChild className="gap-2 sm:ml-4">
+							<Link href="/kontakt">
 								<Send className="size-4" />
 								Kontakt
-							</Button>
-						</Link>
+							</Link>
+						</Button>
 					</div>
 				</FadeInUp>
 			</section>
@@ -331,12 +331,12 @@ export default function LeistungenPage() {
 									</ul>
 								</CardContent>
 								<CardFooter>
-									<Link className="w-full" href="/abrechnung">
-										<Button className="w-full gap-2" variant="outline">
+									<Button asChild className="w-full gap-2" variant="outline">
+										<Link href="/abrechnung">
 											Mehr erfahren
 											<ArrowRight className="size-4" />
-										</Button>
-									</Link>
+										</Link>
+									</Button>
 								</CardFooter>
 							</Card>
 						</FadeInUp>
@@ -363,12 +363,12 @@ export default function LeistungenPage() {
 									</ul>
 								</CardContent>
 								<CardFooter>
-									<Link className="w-full" href="/vorfinanzierung">
-										<Button className="w-full gap-2">
+									<Button asChild className="w-full gap-2">
+										<Link href="/vorfinanzierung">
 											Mehr erfahren
 											<ArrowRight className="size-4" />
-										</Button>
-									</Link>
+										</Link>
+									</Button>
 								</CardFooter>
 							</Card>
 						</FadeInUp>

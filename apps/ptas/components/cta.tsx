@@ -13,16 +13,17 @@ export default function CTA() {
 					Wir bieten verschiedene Leistungs-Pakete für die Abrechnung von
 					Krankentransporten - ohne versteckte Kosten!
 				</p>
-				<Link href="/kontakt">
-					<Button
-						className="gap-2 bg-background text-foreground hover:bg-background/90"
-						size="lg"
-						variant="secondary"
-					>
+				<Button
+					asChild
+					className="gap-2 bg-background text-foreground hover:bg-background/90"
+					size="lg"
+					variant="secondary"
+				>
+					<Link href="/kontakt">
 						<Send className="size-4" />
 						Erste Abrechnung erstellen
-					</Button>
-				</Link>
+					</Link>
+				</Button>
 			</div>
 		</section>
 	);

@@ -116,22 +116,23 @@ export default function VorfinanzierungPage() {
 							gedacht!
 						</p>
 						<div className="flex w-full flex-col justify-center gap-3 sm:flex-row sm:flex-wrap">
-							<Link href="/kontakt">
-								<Button className="w-full gap-2 sm:w-auto" size="lg">
+							<Button asChild className="w-full gap-2 sm:w-auto" size="lg">
+								<Link href="/kontakt">
 									<Send className="size-4" />
 									Jetzt anfragen
-								</Button>
-							</Link>
-							<Link href="/abrechnung">
-								<Button
-									className="w-full gap-2 sm:w-auto"
-									size="lg"
-									variant="outline"
-								>
+								</Link>
+							</Button>
+							<Button
+								asChild
+								className="w-full gap-2 sm:w-auto"
+								size="lg"
+								variant="outline"
+							>
+								<Link href="/abrechnung">
 									Zur Abrechnung
 									<ArrowRight className="size-4" />
-								</Button>
-							</Link>
+								</Link>
+							</Button>
 						</div>
 					</FadeInUp>
 				</div>
@@ -263,12 +264,12 @@ export default function VorfinanzierungPage() {
 						Frist von 3 Monaten auch wieder abmelden, wenn Sie das wünschen.
 					</p>
 					<div className="flex flex-wrap justify-center gap-4">
-						<Link href="/leistungen">
-							<Button className="gap-2" variant="outline">
+						<Button asChild className="gap-2" variant="outline">
+							<Link href="/leistungen">
 								Leistungs-Pakete ansehen
 								<ArrowRight className="size-4" />
-							</Button>
-						</Link>
+							</Link>
+						</Button>
 					</div>
 				</div>
 			</section>

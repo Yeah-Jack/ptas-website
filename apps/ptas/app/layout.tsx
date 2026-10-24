@@ -67,9 +67,9 @@ export default function RootLayout({
 					`}
 				</Script>
 				<Providers>
-					<div className="flex min-h-full flex-col">
+					<div className="flex min-h-svh flex-col">
 						<Header />
-						<main>{children}</main>
+						<main className="flex-1">{children}</main>
 						<Footer />
 					</div>
 				</Providers>

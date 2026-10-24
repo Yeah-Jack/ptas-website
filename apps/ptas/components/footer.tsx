@@ -85,10 +85,9 @@ export default function Footer() {
 							Kontakt
 						</h3>
 						<div className="flex flex-col gap-3 text-muted-foreground text-sm">
-							<Link
+							<a
 								className="flex items-center gap-2 transition-colors hover:text-foreground"
 								href="https://www.google.com/maps/place/Am+Holzweg+26,+65830+Kriftel,+Deutschland"
-								prefetch={false}
 								rel="noopener noreferrer"
 								target="_blank"
 							>
@@ -99,23 +98,21 @@ export default function Footer() {
 									<br />
 									65830 Kriftel
 								</span>
-							</Link>
-							<Link
+							</a>
+							<a
 								className="flex items-center gap-2 transition-colors hover:text-foreground"
 								href="tel:+4961929391752"
-								prefetch={false}
 							>
 								<Phone className="size-4 shrink-0 text-primary" />
 								06192 9391 752
-							</Link>
-							<Link
+							</a>
+							<a
 								className="flex items-center gap-2 transition-colors hover:text-foreground"
 								href="mailto:info@ptas.de"
-								prefetch={false}
 							>
 								<Mail className="size-4 shrink-0 text-primary" />
 								info@ptas.de
-							</Link>
+							</a>
 						</div>
 					</div>
 				</div>
@@ -128,14 +125,13 @@ export default function Footer() {
 						© 1997 - {new Date().getFullYear()}{" "}
 						Personentransport-Abrechnungsservice. Alle Rechte vorbehalten.
 					</p>
-					<Link
+					<a
 						href="https://github.com/Yeah-Jack"
-						prefetch={false}
 						title="Mit Herz von Frederik Bauer in Deutschland entwickelt"
 					>
 						Mit <span className="text-primary">♥</span> entwickelt in
 						Deutschland
-					</Link>
+					</a>
 				</div>
 			</div>
 		</footer>

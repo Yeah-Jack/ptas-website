@@ -45,10 +45,14 @@ export default function Testimonial({
 								</div>
 								<div className="flex items-center gap-2">
 									<div className="flex-1">
-										<h4 className="font-medium text-lg">{testimonial.name}</h4>
-										<p className="text-muted-foreground">
-											{testimonial.company}
-										</p>
+										{testimonial.name ? (
+											<p className="font-medium text-lg">{testimonial.name}</p>
+										) : null}
+										{testimonial.company ? (
+											<p className="text-muted-foreground">
+												{testimonial.company}
+											</p>
+										) : null}
 									</div>
 								</div>
 							</div>

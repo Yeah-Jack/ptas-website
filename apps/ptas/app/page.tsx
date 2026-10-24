@@ -269,15 +269,16 @@ export default function Home() {
 
 						{/* CTA & Social Proof */}
 						<div className="flex w-full flex-col items-center justify-center gap-4 pt-4 sm:flex-row sm:gap-6">
-							<Link className="w-full sm:w-auto" href="/kontakt">
-								<Button
-									className="h-14 w-full px-8 font-semibold text-base shadow-lg transition-all hover:scale-105"
-									size="lg"
-								>
+							<Button
+								asChild
+								className="h-14 w-full px-8 font-semibold text-base shadow-lg transition-all hover:scale-105 sm:w-auto"
+								size="lg"
+							>
+								<Link href="/kontakt">
 									Jetzt unverbindlich anfragen
 									<ArrowRight className="ml-2 size-5" />
-								</Button>
-							</Link>
+								</Link>
+							</Button>
 						</div>
 
 						{/* Social Proof */}
