@@ -12,31 +12,35 @@ import { Checkbox } from "@repo/ui/components/checkbox";
 import { Input } from "@repo/ui/components/input";
 import { Label } from "@repo/ui/components/label";
 import { Textarea } from "@repo/ui/components/textarea";
-import { useForm } from "@tanstack/react-form";
+import { type AnyFieldApi, useForm } from "@tanstack/react-form";
 import { Clock, Mail, Phone, Send } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { FadeInUp } from "@/components/animations/fade-in-up";
+import { markContactSent } from "@/components/conversion-tracker";
+import { type ContactFormValues, contactFields } from "@/lib/contact-schema";
 
-interface FormData {
-	abrechnungInteresse: boolean;
-	abrechnungsvolumen: string;
-	adresse: string;
-	email: string;
-	nachricht: string;
-	name: string;
-	ort: string;
-	plz: string;
-	problem: string;
-	telefon: string;
-	unternehmen: string;
-	vorfinanzierungInteresse: boolean;
+function FieldError({ field }: { field: AnyFieldApi }) {
+	if (field.state.meta.isValid) {
+		return null;
+	}
+	return (
+		<p className="text-[0.8rem] text-destructive" id={`${field.name}-error`}>
+			{field.state.meta.errors.map((error) => error?.message).join(", ")}
+		</p>
+	);
 }
+
+const errorProps = (field: AnyFieldApi) =>
+	field.state.meta.isValid
+		? {}
+		: { "aria-describedby": `${field.name}-error`, "aria-invalid": true };
 
 export default function KontaktPage() {
 	const router = useRouter();
 
-	const defaultValues: FormData = {
+	const defaultValues: ContactFormValues = {
 		abrechnungInteresse: false,
 		abrechnungsvolumen: "",
 		adresse: "",
@@ -49,6 +53,7 @@ export default function KontaktPage() {
 		telefon: "",
 		unternehmen: "",
 		vorfinanzierungInteresse: false,
+		website: "",
 	};
 
 	const form = useForm({
@@ -74,6 +79,7 @@ export default function KontaktPage() {
 
 			try {
 				await promise;
+				markContactSent();
 				router.push("/kontakt/danke");
 			} catch (_) {}
 		},
@@ -169,10 +175,7 @@ export default function KontaktPage() {
 									<div className="grid gap-4 md:grid-cols-2">
 										<form.Field
 											name="name"
-											validators={{
-												onChange: ({ value }) =>
-													!value ? "Name ist erforderlich" : undefined,
-											}}
+											validators={{ onChange: contactFields.name }}
 										>
 											{(field) => (
 												<div className="space-y-2">
@@ -181,6 +184,9 @@ export default function KontaktPage() {
 														<span className="text-destructive">*</span>
 													</Label>
 													<Input
+														{...errorProps(field)}
+														aria-required="true"
+														autoComplete="name"
 														id={field.name}
 														name={field.name}
 														onBlur={field.handleBlur}
@@ -188,20 +194,21 @@ export default function KontaktPage() {
 														placeholder="Name oder Ansprechpartner..."
 														value={field.state.value}
 													/>
-													{field.state.meta.errors ? (
-														<p className="text-[0.8rem] text-destructive">
-															{field.state.meta.errors.join(", ")}
-														</p>
-													) : null}
+													<FieldError field={field} />
 												</div>
 											)}
 										</form.Field>
 
-										<form.Field name="unternehmen">
+										<form.Field
+											name="unternehmen"
+											validators={{ onChange: contactFields.unternehmen }}
+										>
 											{(field) => (
 												<div className="space-y-2">
 													<Label htmlFor={field.name}>Unternehmen</Label>
 													<Input
+														{...errorProps(field)}
+														autoComplete="organization"
 														id={field.name}
 														name={field.name}
 														onBlur={field.handleBlur}
@@ -209,16 +216,22 @@ export default function KontaktPage() {
 														placeholder="Unternehmen..."
 														value={field.state.value}
 													/>
+													<FieldError field={field} />
 												</div>
 											)}
 										</form.Field>
 									</div>
 
-									<form.Field name="adresse">
+									<form.Field
+										name="adresse"
+										validators={{ onChange: contactFields.adresse }}
+									>
 										{(field) => (
 											<div className="space-y-2">
 												<Label htmlFor={field.name}>Adresse</Label>
 												<Input
+													{...errorProps(field)}
+													autoComplete="street-address"
 													id={field.name}
 													name={field.name}
 													onBlur={field.handleBlur}
@@ -226,16 +239,22 @@ export default function KontaktPage() {
 													placeholder="Adresse..."
 													value={field.state.value}
 												/>
+												<FieldError field={field} />
 											</div>
 										)}
 									</form.Field>
 
 									<div className="grid gap-4 md:grid-cols-2">
-										<form.Field name="plz">
+										<form.Field
+											name="plz"
+											validators={{ onChange: contactFields.plz }}
+										>
 											{(field) => (
 												<div className="space-y-2">
 													<Label htmlFor={field.name}>PLZ</Label>
 													<Input
+														{...errorProps(field)}
+														autoComplete="postal-code"
 														id={field.name}
 														name={field.name}
 														onBlur={field.handleBlur}
@@ -243,15 +262,21 @@ export default function KontaktPage() {
 														placeholder="PLZ..."
 														value={field.state.value}
 													/>
+													<FieldError field={field} />
 												</div>
 											)}
 										</form.Field>
 
-										<form.Field name="ort">
+										<form.Field
+											name="ort"
+											validators={{ onChange: contactFields.ort }}
+										>
 											{(field) => (
 												<div className="space-y-2">
 													<Label htmlFor={field.name}>Ort</Label>
 													<Input
+														{...errorProps(field)}
+														autoComplete="address-level2"
 														id={field.name}
 														name={field.name}
 														onBlur={field.handleBlur}
@@ -259,6 +284,7 @@ export default function KontaktPage() {
 														placeholder="Ort..."
 														value={field.state.value}
 													/>
+													<FieldError field={field} />
 												</div>
 											)}
 										</form.Field>
@@ -267,14 +293,7 @@ export default function KontaktPage() {
 									<div className="grid gap-4 md:grid-cols-2">
 										<form.Field
 											name="email"
-											validators={{
-												onChange: ({ value }) =>
-													!value
-														? "E-Mail ist erforderlich"
-														: !/^\S+@\S+\.\S+$/.test(value)
-															? "Ungültige E-Mail-Adresse"
-															: undefined,
-											}}
+											validators={{ onChange: contactFields.email }}
 										>
 											{(field) => (
 												<div className="space-y-2">
@@ -283,6 +302,9 @@ export default function KontaktPage() {
 														<span className="text-destructive">*</span>
 													</Label>
 													<Input
+														{...errorProps(field)}
+														aria-required="true"
+														autoComplete="email"
 														id={field.name}
 														name={field.name}
 														onBlur={field.handleBlur}
@@ -291,20 +313,21 @@ export default function KontaktPage() {
 														type="email"
 														value={field.state.value}
 													/>
-													{field.state.meta.errors ? (
-														<p className="text-[0.8rem] text-destructive">
-															{field.state.meta.errors.join(", ")}
-														</p>
-													) : null}
+													<FieldError field={field} />
 												</div>
 											)}
 										</form.Field>
 
-										<form.Field name="telefon">
+										<form.Field
+											name="telefon"
+											validators={{ onChange: contactFields.telefon }}
+										>
 											{(field) => (
 												<div className="space-y-2">
 													<Label htmlFor={field.name}>Telefon</Label>
 													<Input
+														{...errorProps(field)}
+														autoComplete="tel"
 														id={field.name}
 														name={field.name}
 														onBlur={field.handleBlur}
@@ -313,6 +336,7 @@ export default function KontaktPage() {
 														type="tel"
 														value={field.state.value}
 													/>
+													<FieldError field={field} />
 												</div>
 											)}
 										</form.Field>
@@ -362,13 +386,17 @@ export default function KontaktPage() {
 										</div>
 									</div>
 
-									<form.Field name="abrechnungsvolumen">
+									<form.Field
+										name="abrechnungsvolumen"
+										validators={{ onChange: contactFields.abrechnungsvolumen }}
+									>
 										{(field) => (
 											<div className="space-y-2">
 												<Label htmlFor={field.name}>
 													Abrechnungsvolumen pro Monat
 												</Label>
 												<Input
+													{...errorProps(field)}
 													id={field.name}
 													name={field.name}
 													onBlur={field.handleBlur}
@@ -376,17 +404,22 @@ export default function KontaktPage() {
 													placeholder="z.B. 50.000 €"
 													value={field.state.value}
 												/>
+												<FieldError field={field} />
 											</div>
 										)}
 									</form.Field>
 
-									<form.Field name="problem">
+									<form.Field
+										name="problem"
+										validators={{ onChange: contactFields.problem }}
+									>
 										{(field) => (
 											<div className="space-y-2">
 												<Label htmlFor={field.name}>
 													Was ist Ihr größtes Problem?
 												</Label>
 												<Textarea
+													{...errorProps(field)}
 													id={field.name}
 													name={field.name}
 													onBlur={field.handleBlur}
@@ -395,15 +428,20 @@ export default function KontaktPage() {
 													rows={3}
 													value={field.state.value}
 												/>
+												<FieldError field={field} />
 											</div>
 										)}
 									</form.Field>
 
-									<form.Field name="nachricht">
+									<form.Field
+										name="nachricht"
+										validators={{ onChange: contactFields.nachricht }}
+									>
 										{(field) => (
 											<div className="space-y-2">
 												<Label htmlFor={field.name}>Nachricht</Label>
 												<Textarea
+													{...errorProps(field)}
 													id={field.name}
 													name={field.name}
 													onBlur={field.handleBlur}
@@ -412,14 +450,51 @@ export default function KontaktPage() {
 													rows={5}
 													value={field.state.value}
 												/>
+												<FieldError field={field} />
 											</div>
 										)}
 									</form.Field>
 
-									<p className="text-muted-foreground text-xs">
-										<span className="text-destructive">*</span> Erforderliche
-										Angaben
-									</p>
+									{/* Honeypot: hidden from visitors and screen readers, bots fill it in */}
+									<div
+										aria-hidden="true"
+										className="absolute -left-[9999px] size-px overflow-hidden"
+									>
+										<form.Field name="website">
+											{(field) => (
+												<>
+													<Label htmlFor={field.name}>Website</Label>
+													<Input
+														autoComplete="off"
+														id={field.name}
+														name={field.name}
+														onChange={(e) => field.handleChange(e.target.value)}
+														tabIndex={-1}
+														value={field.state.value}
+													/>
+												</>
+											)}
+										</form.Field>
+									</div>
+
+									<div className="space-y-2 text-muted-foreground text-xs">
+										<p>
+											<span className="text-destructive">*</span> Erforderliche
+											Angaben
+										</p>
+										<p>
+											Wenn Sie diese Nachricht abschicken, speichern wir
+											zusätzliche personenbezogene Daten von Ihnen. Lesen Sie
+											dazu unsere{" "}
+											<Link
+												className="text-primary underline-offset-4 hover:underline"
+												href="/datenschutz"
+											>
+												Datenschutzhinweise
+											</Link>
+											.
+										</p>
+									</div>
 
 									<form.Subscribe
 										selector={(state) => [state.canSubmit, state.isSubmitting]}

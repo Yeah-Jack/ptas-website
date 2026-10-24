@@ -8,7 +8,7 @@ import {
 import { CheckCircle } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import Script from "next/script";
+import ConversionTracker from "@/components/conversion-tracker";
 
 export const metadata: Metadata = {
 	alternates: { canonical: "/kontakt/danke" },
@@ -27,11 +27,7 @@ export const metadata: Metadata = {
 export default function DankePage() {
 	return (
 		<>
-			<Script id="gtag-conversion" strategy="afterInteractive">
-				{`
-					gtag('event', 'conversion', {'send_to': 'AW-10795425279/YDWdCOaRpcgcEP-71Jso'});
-				`}
-			</Script>
+			<ConversionTracker />
 
 			<div className="flex flex-col items-center justify-center py-24">
 				<Card className="mx-auto max-w-lg text-center">

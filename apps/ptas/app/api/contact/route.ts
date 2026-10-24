@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { contactSchema } from "@/lib/contact-schema";
 
 const escapeHtml = (value: string) =>
 	value.replace(/[&<>"']/g, (char) => {
@@ -18,84 +19,88 @@ const escapeHtml = (value: string) =>
 		}
 	});
 
+const orDash = (value: string) => value || "-";
+const yesNo = (value: boolean) => (value ? "Ja" : "Nein");
+
 export async function POST(req: Request) {
+	let body: unknown;
 	try {
-		const body = await req.json();
-		const {
-			name,
-			email,
-			unternehmen,
-			adresse,
-			plz,
-			ort,
-			telefon,
-			abrechnungInteresse,
-			vorfinanzierungInteresse,
-			abrechnungsvolumen,
-			problem,
-			nachricht,
-		} = body;
+		body = await req.json();
+	} catch {
+		return NextResponse.json({ error: "Ungültige Anfrage." }, { status: 400 });
+	}
 
-		if (!name || !email) {
-			return NextResponse.json(
-				{ error: "Name und E-Mail sind erforderlich." },
-				{ status: 400 },
-			);
-		}
+	const parsed = contactSchema.safeParse(body);
+	if (!parsed.success) {
+		return NextResponse.json(
+			{ error: "Bitte überprüfen Sie Ihre Eingaben." },
+			{ status: 400 },
+		);
+	}
 
-		const publicKey = process.env.MAILJET_APIKEY_PUBLIC;
-		const privateKey = process.env.MAILJET_APIKEY_PRIVATE;
+	const { website, ...data } = parsed.data;
 
-		if (!publicKey || !privateKey) {
-			console.error("Mailjet env vars missing.");
-			return NextResponse.json(
-				{ error: "Server-Konfigurationsfehler: E-Mail-Dienst nicht bereit." },
-				{ status: 500 },
-			);
-		}
+	// Honeypot filled: answer like a success so the bot moves on, but send nothing
+	if (website) {
+		return NextResponse.json({ success: true });
+	}
 
+	const publicKey = process.env.MAILJET_APIKEY_PUBLIC;
+	const privateKey = process.env.MAILJET_APIKEY_PRIVATE;
+
+	if (!publicKey || !privateKey) {
+		console.error("Mailjet env vars missing.");
+		return NextResponse.json(
+			{ error: "Server-Konfigurationsfehler: E-Mail-Dienst nicht bereit." },
+			{ status: 500 },
+		);
+	}
+
+	const rows: [label: string, value: string][] = [
+		["Name/Ansprechpartner", data.name],
+		["Unternehmen", orDash(data.unternehmen)],
+		[
+			"Adresse",
+			orDash(
+				[data.adresse, `${data.plz} ${data.ort}`.trim()]
+					.filter(Boolean)
+					.join(", "),
+			),
+		],
+		["E-Mail", data.email],
+		["Telefon", orDash(data.telefon)],
+		["Interesse an Abrechnung", yesNo(data.abrechnungInteresse)],
+		["Interesse an Vorfinanzierung", yesNo(data.vorfinanzierungInteresse)],
+		["Abrechnungsvolumen", orDash(data.abrechnungsvolumen)],
+		["Aktuelles Problem", orDash(data.problem)],
+		["Zusätzliche Nachricht", orDash(data.nachricht)],
+	];
+
+	const htmlContent = `
+      <h3>Neue Kontaktanfrage über die Webseite</h3>
+      ${rows
+				.map(
+					([label, value]) =>
+						`<p><strong>${label}:</strong> ${escapeHtml(value).replace(/\n/g, "<br>")}</p>`,
+				)
+				.join("\n")}
+    `;
+	const textContent = `Neue Kontaktanfrage über die Webseite\n\n${rows
+		.map(([label, value]) => `${label}: ${value}`)
+		.join("\n")}`;
+
+	try {
 		const Mailjet = (await import("node-mailjet")).default;
 		const mailjet = new Mailjet({ apiKey: publicKey, apiSecret: privateKey });
 
-		const safeName = escapeHtml(String(name));
-		const safeUnternehmen = unternehmen ? escapeHtml(String(unternehmen)) : "-";
-		const safeAdresse = adresse ? escapeHtml(String(adresse)) : "-";
-		const safePlz = plz ? escapeHtml(String(plz)) : "";
-		const safeOrt = ort ? escapeHtml(String(ort)) : "";
-		const safeEmail = escapeHtml(String(email));
-		const safeTelefon = telefon ? escapeHtml(String(telefon)) : "-";
-		const safeAbrechnungsvolumen = abrechnungsvolumen
-			? escapeHtml(String(abrechnungsvolumen))
-			: "-";
-		const safeProblem = problem ? escapeHtml(String(problem)) : "-";
-		const safeNachricht = nachricht
-			? escapeHtml(String(nachricht)).replace(/\n/g, "<br>")
-			: "-";
-
-		const htmlContent = `
-      <h3>Neue Kontaktanfrage über die Webseite</h3>
-      <p><strong>Name/Ansprechpartner:</strong> ${safeName}</p>
-      <p><strong>Unternehmen:</strong> ${safeUnternehmen}</p>
-      <p><strong>Adresse:</strong> ${safeAdresse}, ${safePlz} ${safeOrt}</p>
-      <p><strong>E-Mail:</strong> ${safeEmail}</p>
-      <p><strong>Telefon:</strong> ${safeTelefon}</p>
-      <br />
-      <p><strong>Interesse an Abrechnung:</strong> ${abrechnungInteresse ? "Ja" : "Nein"}</p>
-      <p><strong>Interesse an Vorfinanzierung:</strong> ${vorfinanzierungInteresse ? "Ja" : "Nein"}</p>
-      <p><strong>Abrechnungsvolumen:</strong> ${safeAbrechnungsvolumen}</p>
-      <p><strong>Aktuelles Problem:</strong> ${safeProblem}</p>
-      <p><strong>Zusätzliche Nachricht:</strong></p>
-      <p>${safeNachricht}</p>
-    `;
-
-		const request = await mailjet.post("send", { version: "v3.1" }).request({
+		await mailjet.post("send", { version: "v3.1" }).request({
 			Messages: [
 				{
 					From: { Email: "info@ptas.de", Name: "PTAS Website" },
 					HTMLPart: htmlContent,
-					ReplyTo: { Email: email, Name: name },
-					Subject: `Neue Kontaktanfrage von ${name}`,
-					TextPart: `Neue Kontaktanfrage von ${name}. E-Mail: ${email}`,
+					ReplyTo: { Email: data.email, Name: data.name },
+					Subject: `Neue Kontaktanfrage von ${data.name}`,
+					TextPart: textContent,
 					To: [
 						{ Email: "info@ptas.de", Name: "PTAS Info" },
 						{ Email: "andre.bartels@ptas.de", Name: "Andre Bartels" },
@@ -104,7 +109,8 @@ export async function POST(req: Request) {
 			],
 		});
 
-		return NextResponse.json({ data: request.body, success: true });
+		// Mailjet's response lists the recipients, so it must not reach the browser
+		return NextResponse.json({ success: true });
 	} catch (error) {
 		const err = error as { statusCode?: number; message?: string };
 		console.error("Mailjet API Error:", err.statusCode, err.message);
