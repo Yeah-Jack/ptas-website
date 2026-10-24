@@ -1,20 +1,14 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import type { Metadata } from "next";
 import { FadeInUp } from "@/components/animations/fade-in-up";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-	alternates: { canonical: "/datenschutz" },
+export const metadata = pageMetadata({
 	description:
 		"Datenschutzhinweise der PTAS Personentransport-Abrechnungsservice",
-	openGraph: {
-		description:
-			"Datenschutzhinweise der PTAS Personentransport-Abrechnungsservice",
-		title: "Datenschutz",
-		url: "https://ptas.de/datenschutz",
-	},
+	path: "/datenschutz",
 	title: "Datenschutz",
-};
+});
 
 export default async function DatenschutzPage() {
 	const html = await fs.readFile(

@@ -29,25 +29,19 @@ import {
 	Users,
 	Zap,
 } from "lucide-react";
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { FadeInUp } from "@/components/animations/fade-in-up";
 import CTA from "@/components/cta";
 import Testimonial from "@/components/testimonial";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-	alternates: { canonical: "/" },
+export const metadata = pageMetadata({
 	description:
 		"Professionelle Abrechnung für Kranken-, Rollstuhl- und Tragestuhltransporte. Konzentrieren Sie sich auf Ihr Geschäft, wir übernehmen die Abrechnung.",
-	openGraph: {
-		description:
-			"Professionelle Abrechnung für Kranken-, Rollstuhl- und Tragestuhltransporte. Konzentrieren Sie sich auf Ihr Geschäft, wir übernehmen die Abrechnung.",
-		title: "PTAS - Personentransport-Abrechnungsservice",
-		url: "https://ptas.de",
-	},
+	path: "/",
 	title: "PTAS - Personentransport-Abrechnungsservice",
-};
+});
 
 const benefits = [
 	{
@@ -230,9 +224,38 @@ const testimonials = [
 	},
 ] as const;
 
+const organizationJsonLd = {
+	"@context": "https://schema.org",
+	"@type": "Organization",
+	address: {
+		"@type": "PostalAddress",
+		addressCountry: "DE",
+		addressLocality: "Hofheim am Taunus",
+		postalCode: "65719",
+		streetAddress: "Im Brand 1A",
+	},
+	alternateName: "Personentransport-Abrechnungsservice",
+	email: "info@ptas.de",
+	foundingDate: "1997",
+	legalName: "Daniel Software GmbH",
+	logo: "https://ptas.de/icon.svg",
+	name: "PTAS",
+	telephone: "+49 6192 9391752",
+	url: "https://ptas.de",
+	vatID: "DE188151608",
+};
+
 export default function Home() {
 	return (
 		<div className="flex flex-col">
+			<script
+				// biome-ignore lint/security/noDangerouslySetInnerHtml: static JSON-LD, "<" is escaped as recommended by the Next.js docs
+				dangerouslySetInnerHTML={{
+					__html: JSON.stringify(organizationJsonLd).replace(/</g, "\\u003c"),
+				}}
+				type="application/ld+json"
+			/>
+
 			{/* Hero Section */}
 			<section className="relative overflow-hidden bg-background pt-16 pb-8 md:pt-24 md:pb-12 lg:pt-32">
 				{/* Background gradient */}

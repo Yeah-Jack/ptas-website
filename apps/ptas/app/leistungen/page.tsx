@@ -20,23 +20,17 @@ import {
 	Shield,
 	Zap,
 } from "lucide-react";
-import type { Metadata } from "next";
 import Link from "next/link";
 import { FadeInUp } from "@/components/animations/fade-in-up";
 import CTA from "@/components/cta";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-	alternates: { canonical: "/leistungen" },
+export const metadata = pageMetadata({
 	description:
 		"Wir übernehmen den kompletten Bearbeitungs-Ablauf für Ihre Transportscheine. Von der Erfassung der Krankenfahrten bis hin zur Rechnungsstellung.",
-	openGraph: {
-		description:
-			"Wir übernehmen den kompletten Bearbeitungs-Ablauf für Ihre Transportscheine. Von der Erfassung der Krankenfahrten bis hin zur Rechnungsstellung.",
-		title: "Abrechnung von Krankenfahrten zu geringen Kosten",
-		url: "https://ptas.de/leistungen",
-	},
+	path: "/leistungen",
 	title: "Abrechnung von Krankenfahrten zu geringen Kosten",
-};
+});
 
 const processSteps = [
 	{

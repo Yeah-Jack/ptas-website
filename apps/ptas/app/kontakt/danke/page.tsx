@@ -6,23 +6,17 @@ import {
 	CardTitle,
 } from "@repo/ui/components/card";
 import { CheckCircle } from "lucide-react";
-import type { Metadata } from "next";
 import Link from "next/link";
 import ConversionTracker from "@/components/conversion-tracker";
+import { pageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-	alternates: { canonical: "/kontakt/danke" },
+export const metadata = pageMetadata({
 	description:
 		"Danke für Ihre Anfrage! Wir haben Ihre Nachricht erhalten und melden uns schnellstmöglich bei Ihnen - in der Regel innerhalb eines Werktages.",
-	openGraph: {
-		description:
-			"Danke für Ihre Anfrage! Wir haben Ihre Nachricht erhalten und melden uns schnellstmöglich bei Ihnen - in der Regel innerhalb eines Werktages.",
-		title: "Vielen Dank",
-		url: "https://ptas.de/kontakt/danke",
-	},
+	path: "/kontakt/danke",
 	robots: { follow: false, index: false },
 	title: "Vielen Dank",
-};
+});
 
 export default function DankePage() {
 	return (

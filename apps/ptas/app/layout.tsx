@@ -6,6 +6,7 @@ import { cn } from "@repo/ui/lib/utils";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import Providers from "@/components/providers";
+import { sharedOpenGraph } from "@/lib/metadata";
 
 const inter = Inter({
 	display: "swap",
@@ -18,13 +19,11 @@ export const metadata: Metadata = {
 		"Professionelle Abrechnung für Kranken-, Rollstuhl- und Tragestuhltransporte. Konzentrieren Sie sich auf Ihr Geschäft, wir übernehmen die Abrechnung.",
 	metadataBase: new URL("https://ptas.de"),
 	openGraph: {
+		...sharedOpenGraph,
 		description:
 			"Professionelle Abrechnung für Kranken-, Rollstuhl- und Tragestuhltransporte. Konzentrieren Sie sich auf Ihr Geschäft, wir übernehmen die Abrechnung.",
-		images: [{ url: "https://ptas.de/icon.svg" }],
-		locale: "de_DE",
-		siteName: "PTAS",
 		title: "PTAS - Personentransport-Abrechnungsservice",
-		url: "https://ptas.de",
+		url: "/",
 	},
 	title: {
 		default: "PTAS - Personentransport-Abrechnungsservice",
