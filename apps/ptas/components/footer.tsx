@@ -69,6 +69,13 @@ export default function Footer() {
 									{label}
 								</Link>
 							))}
+							{/* CCM19 reopens its consent dialog for links to this hash */}
+							<a
+								className="text-muted-foreground text-sm transition-colors hover:text-foreground"
+								href="#CCM.openWidget"
+							>
+								Cookie-Einstellungen
+							</a>
 						</nav>
 					</div>
 
@@ -87,6 +94,7 @@ export default function Footer() {
 							>
 								<MapPin className="mt-0.5 size-4 shrink-0 text-primary" />
 								<span>
+									<span className="block text-foreground">Büro</span>
 									Am Holzweg 26
 									<br />
 									65830 Kriftel

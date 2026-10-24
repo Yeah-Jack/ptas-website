@@ -29,7 +29,7 @@ export default function ImpressumPage() {
 						<div className="flex flex-col gap-8 text-foreground/80 md:text-lg">
 							<div>
 								<h2 className="mb-2 font-semibold text-foreground text-xl">
-									Angaben gemäß § 5 TMG
+									Angaben gemäß § 5 DDG
 								</h2>
 								<p className="leading-relaxed">
 									Daniel Software GmbH

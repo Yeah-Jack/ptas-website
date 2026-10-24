@@ -52,7 +52,7 @@ const processSteps = [
 	},
 	{
 		description:
-			"Per Datenträgeraustausch nach §302 SGB - schnelle Bearbeitung, keine Rechnungskürzungen.",
+			"Per Datenträgeraustausch nach § 302 SGB V - schnelle Bearbeitung, weniger Rechnungskürzungen.",
 		icon: Zap,
 		title: "Datenträgeraustausch",
 	},
@@ -140,7 +140,7 @@ export default function LeistungenPage() {
 						<p className="mx-auto max-w-2xl text-muted-foreground">
 							Sie schicken uns Ihre Verordnungen zu. Nach Prüfung und Erfassung
 							der Belege fakturieren wir die Forderungen an die Kostenträger per
-							Datenträgeraustausch nach §302 SGB.
+							Datenträgeraustausch nach § 302 SGB V.
 						</p>
 					</FadeInUp>
 
@@ -226,7 +226,7 @@ export default function LeistungenPage() {
 										<li className="flex items-start gap-3">
 											<CheckCircle className="mt-0.5 size-4 shrink-0 text-primary" />
 											<span className="text-sm">
-												Fakturierung per Datenträgeraustausch §302 SGB
+												Fakturierung per Datenträgeraustausch § 302 SGB V
 											</span>
 										</li>
 										<li className="flex items-start gap-3">

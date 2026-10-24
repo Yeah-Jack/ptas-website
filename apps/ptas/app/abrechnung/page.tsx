@@ -128,7 +128,7 @@ export default function AbrechnungPage() {
 									<p className="text-muted-foreground">
 										Und hier kommen wir ins Spiel. Sprechen Sie mit uns und
 										lassen Sie sich beraten. Die Abrechnung von
-										Krankentransporten durch PTAS ist preiswert und hat many
+										Krankentransporten durch PTAS ist preiswert und hat viele
 										Vorteile!
 									</p>
 									<p className="text-muted-foreground">

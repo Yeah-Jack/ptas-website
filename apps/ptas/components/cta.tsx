@@ -11,7 +11,7 @@ export default function CTA() {
 				</h2>
 				<p className="mb-8 text-lg text-primary-foreground/80">
 					Wir bieten verschiedene Leistungs-Pakete für die Abrechnung von
-					Krankentransporten - ohne Aufpreis!
+					Krankentransporten - ohne versteckte Kosten!
 				</p>
 				<Link href="/kontakt">
 					<Button

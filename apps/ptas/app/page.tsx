@@ -84,7 +84,7 @@ const promises = [
 	},
 	{
 		content: "Schnelle Abwicklung",
-		hover: "Wir garantieren eine schnelle und unkomplizierte Abwicklung.",
+		hover: "Wir sorgen für eine schnelle und unkomplizierte Abwicklung.",
 		icon: Clock,
 	},
 	{
@@ -243,7 +243,9 @@ export default function Home() {
 						{/* Top Badge */}
 						<div className="inline-flex cursor-default items-center rounded-full border border-primary/20 bg-primary/5 px-3 py-1.5 text-primary text-sm transition-colors hover:bg-primary/10">
 							<ShieldCheck className="mr-2 size-4" />
-							<span className="font-semibold">Der Top Abrechnungsservice</span>
+							<span className="font-semibold">
+								Abrechnungsservice seit 1997
+							</span>
 							<span className="mx-2 hidden h-4 w-px bg-primary/20 md:block" />
 							<span className="hidden text-muted-foreground md:block">
 								für Taxi- & Krankentransporte
@@ -278,28 +280,13 @@ export default function Home() {
 							</Link>
 						</div>
 
-						{/* Ratings */}
-						<div className="mt-2 flex flex-col items-center gap-2">
-							<div className="flex items-center gap-1 text-yellow-400">
-								{[1, 2, 3, 4, 5].map((starId) => (
-									<svg
-										aria-hidden="true"
-										className="size-5 fill-current"
-										key={`star-${starId}`}
-										viewBox="0 0 24 24"
-									>
-										<path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
-									</svg>
-								))}
-							</div>
-							<p className="font-medium text-muted-foreground text-sm">
-								Vertraut von{" "}
-								<strong className="font-semibold text-foreground">
-									hunderten
-								</strong>{" "}
-								Unternehmen deutschlandweit
-							</p>
-						</div>
+						{/* Social Proof */}
+						<p className="mt-2 font-medium text-muted-foreground text-sm">
+							<strong className="font-semibold text-foreground">
+								Über 100 Unternehmen
+							</strong>{" "}
+							deutschlandweit vertrauen uns
+						</p>
 					</FadeInUp>
 				</div>
 			</section>
