@@ -1,6 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { FadeInUp } from "@/components/animations/fade-in-up";
+import { cssFadeInUp } from "@/components/animations/css-fade-in-up";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
@@ -19,10 +19,10 @@ export default async function DatenschutzPage() {
 	return (
 		<section className="py-8 md:py-16">
 			<div className="container mx-auto px-4">
-				<FadeInUp>
+				<div className={cssFadeInUp}>
 					{/** biome-ignore lint/security/noDangerouslySetInnerHtml: False positive */}
 					<div dangerouslySetInnerHTML={{ __html: html }} />
-				</FadeInUp>
+				</div>
 			</div>
 		</section>
 	);

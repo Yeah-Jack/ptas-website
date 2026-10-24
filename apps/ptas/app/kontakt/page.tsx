@@ -12,11 +12,13 @@ import { Checkbox } from "@repo/ui/components/checkbox";
 import { Input } from "@repo/ui/components/input";
 import { Label } from "@repo/ui/components/label";
 import { Textarea } from "@repo/ui/components/textarea";
+import { cn } from "@repo/ui/lib/utils";
 import { type AnyFieldApi, useForm } from "@tanstack/react-form";
 import { Clock, Mail, Phone, Send } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { cssFadeInUp } from "@/components/animations/css-fade-in-up";
 import { FadeInUp } from "@/components/animations/fade-in-up";
 import { markContactSent } from "@/components/conversion-tracker";
 import { type ContactFormValues, contactFields } from "@/lib/contact-schema";
@@ -89,7 +91,7 @@ export default function KontaktPage() {
 		<div className="flex flex-col">
 			<section className="border-b bg-linear-to-br from-primary/5 via-background to-primary/10 py-16 md:py-24">
 				<div className="container mx-auto max-w-6xl px-4">
-					<FadeInUp className="mx-auto max-w-3xl text-center">
+					<div className={cn("mx-auto max-w-3xl text-center", cssFadeInUp)}>
 						<div className="mb-4 flex items-center justify-center gap-2 text-primary">
 							<Mail className="size-6" />
 							<span className="font-medium text-sm uppercase tracking-wider">
@@ -103,7 +105,7 @@ export default function KontaktPage() {
 							Bei Fragen zu unserem Produkt-Angebot wenden Sie sich gerne an
 							uns. Über folgende Kanäle erreichen Sie uns:
 						</p>
-					</FadeInUp>
+					</div>
 				</div>
 			</section>
 

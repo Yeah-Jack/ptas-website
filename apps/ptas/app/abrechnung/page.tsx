@@ -6,6 +6,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@repo/ui/components/card";
+import { cn } from "@repo/ui/lib/utils";
 import {
 	ArrowRight,
 	Banknote,
@@ -20,6 +21,7 @@ import {
 	Users,
 } from "lucide-react";
 import Link from "next/link";
+import { cssFadeInUp } from "@/components/animations/css-fade-in-up";
 import { FadeInUp } from "@/components/animations/fade-in-up";
 import CTA from "@/components/cta";
 import { pageMetadata } from "@/lib/metadata";
@@ -76,7 +78,7 @@ export default function AbrechnungPage() {
 			{/* Hero Section */}
 			<section className="border-b bg-linear-to-br from-primary/5 via-background to-primary/10 py-16 md:py-24">
 				<div className="container mx-auto max-w-6xl px-4">
-					<FadeInUp className="mx-auto max-w-3xl text-center">
+					<div className={cn("mx-auto max-w-3xl text-center", cssFadeInUp)}>
 						<h1 className="mb-6 font-bold text-3xl leading-tight tracking-tight md:text-4xl lg:text-5xl">
 							Abrechnung von Krankentransporten -{" "}
 							<span className="text-primary">leicht gemacht</span>
@@ -88,7 +90,7 @@ export default function AbrechnungPage() {
 							Krankentransporten. Verständlich, wenn Unternehmer das von ihrer
 							Agenda weg haben wollen.
 						</p>
-					</FadeInUp>
+					</div>
 				</div>
 			</section>
 

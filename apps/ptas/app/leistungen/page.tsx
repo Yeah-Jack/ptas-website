@@ -7,6 +7,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@repo/ui/components/card";
+import { cn } from "@repo/ui/lib/utils";
 import {
 	ArrowRight,
 	CheckCircle,
@@ -21,6 +22,7 @@ import {
 	Zap,
 } from "lucide-react";
 import Link from "next/link";
+import { cssFadeInUp } from "@/components/animations/css-fade-in-up";
 import { FadeInUp } from "@/components/animations/fade-in-up";
 import CTA from "@/components/cta";
 import { pageMetadata } from "@/lib/metadata";
@@ -104,7 +106,7 @@ export default function LeistungenPage() {
 			{/* Hero Section */}
 			<section className="border-b bg-linear-to-br from-primary/5 via-background to-primary/10 py-16 md:py-24">
 				<div className="container mx-auto max-w-6xl px-4">
-					<FadeInUp className="mx-auto max-w-3xl text-center">
+					<div className={cn("mx-auto max-w-3xl text-center", cssFadeInUp)}>
 						<div className="mb-4 flex items-center justify-center gap-2 text-primary">
 							<Package className="size-6" />
 							<span className="font-semibold text-sm uppercase tracking-wider">
@@ -120,7 +122,7 @@ export default function LeistungenPage() {
 							Transportscheine. Von der Erfassung der Krankenfahrten bis hin zur
 							Rechnungsstellung.
 						</p>
-					</FadeInUp>
+					</div>
 				</div>
 			</section>
 

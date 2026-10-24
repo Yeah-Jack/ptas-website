@@ -12,6 +12,7 @@ import {
 	TabsList,
 	TabsTrigger,
 } from "@repo/ui/components/tabs";
+import { cn } from "@repo/ui/lib/utils";
 import {
 	ArrowRight,
 	Building,
@@ -31,6 +32,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { cssFadeInUp } from "@/components/animations/css-fade-in-up";
 import { FadeInUp } from "@/components/animations/fade-in-up";
 import CTA from "@/components/cta";
 import Testimonial from "@/components/testimonial";
@@ -262,7 +264,12 @@ export default function Home() {
 				<div className="pointer-events-none absolute top-0 left-1/2 h-100 w-200 -translate-x-1/2 -translate-y-12 rounded-full bg-primary/20 blur-[100px]" />
 
 				<div className="container relative mx-auto flex max-w-5xl flex-col items-center px-4 text-center">
-					<FadeInUp className="flex flex-col items-center gap-6 md:gap-8">
+					<div
+						className={cn(
+							"flex flex-col items-center gap-6 md:gap-8",
+							cssFadeInUp,
+						)}
+					>
 						{/* Top Badge */}
 						<div className="inline-flex cursor-default items-center rounded-full border border-primary/20 bg-primary/5 px-3 py-1.5 text-primary text-sm transition-colors hover:bg-primary/10">
 							<ShieldCheck className="mr-2 size-4" />
@@ -311,7 +318,7 @@ export default function Home() {
 							</strong>{" "}
 							deutschlandweit vertrauen uns
 						</p>
-					</FadeInUp>
+					</div>
 				</div>
 			</section>
 

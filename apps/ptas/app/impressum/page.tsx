@@ -1,3 +1,4 @@
+import { cssFadeInUp } from "@/components/animations/css-fade-in-up";
 import { FadeInUp } from "@/components/animations/fade-in-up";
 import { pageMetadata } from "@/lib/metadata";
 
@@ -11,11 +12,11 @@ export default function ImpressumPage() {
 	return (
 		<>
 			<section className="container mx-auto max-w-4xl py-16 text-center md:py-24">
-				<FadeInUp>
+				<div className={cssFadeInUp}>
 					<h1 className="mb-6 font-bold text-3xl leading-tight tracking-tight md:text-4xl lg:text-5xl">
 						Impressum
 					</h1>
-				</FadeInUp>
+				</div>
 			</section>
 
 			<section className="py-16 md:py-24">
