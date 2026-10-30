@@ -10,19 +10,13 @@ declare global {
 	}
 }
 
-/** Remembers a successful contact form submission for the conversion on /kontakt/danke. */
 export function markContactSent() {
 	try {
 		sessionStorage.setItem(CONTACT_SENT_KEY, "1");
 	} catch {
-		// Storage blocked: only the conversion is lost, the form still works
 	}
 }
 
-/**
- * Reports the Google Ads conversion once per submitted form. gtag only exists
- * after the visitor consented in CCM19, so declined consent sends nothing.
- */
 export default function ConversionTracker() {
 	useEffect(() => {
 		let submitted = false;
