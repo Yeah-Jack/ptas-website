@@ -8,7 +8,6 @@ export const metadata: Metadata = {
 		path: "/kontakt",
 		title: "Kontakt",
 	}),
-	// A plain string title would drop the root "%s | PTAS" template for /kontakt/danke
 	title: { default: "Kontakt", template: "%s | PTAS" },
 };
 
