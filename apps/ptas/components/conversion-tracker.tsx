@@ -13,8 +13,7 @@ declare global {
 export function markContactSent() {
 	try {
 		sessionStorage.setItem(CONTACT_SENT_KEY, "1");
-	} catch {
-	}
+	} catch {}
 }
 
 export default function ConversionTracker() {

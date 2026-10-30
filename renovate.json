@@ -1,16 +1,13 @@
 {
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
-	"description": [
-		"One grouped PR for all minor/patch updates per week: every PR that touches package.json or bun.lock also deploys an Azure Static Web Apps preview environment for both sites, and the Free plan only allows 3 per app.",
-		"npm releases must be 3 days old before Renovate proposes them; bunfig.toml blocks releases younger than 2 days, so proposed versions always install.",
-		"Security fixes (from GitHub's Dependabot alerts) ignore the schedule and the PR limit and are raised immediately."
-	],
-	"extends": [
-		"config:recommended",
-		"security:minimumReleaseAgeNpm",
-		"group:allNonMajor"
-	],
-	"prConcurrentLimit": 3,
+	"extends": ["config:best-practices", "group:allNonMajor"],
+	"labels": ["dependencies"],
+	"minimumReleaseAge": "3 days",
 	"schedule": ["* 0-8 * * 1"],
-	"timezone": "Europe/Berlin"
+	"separateMultipleMajor": true,
+	"timezone": "Europe/Berlin",
+	"vulnerabilityAlerts": {
+		"addLabels": ["security"],
+		"enabled": true
+	}
 }
