@@ -3,7 +3,6 @@ import { z } from "zod";
 const optionalText = (max: number) =>
 	z.string().trim().max(max, `Bitte maximal ${max} Zeichen eingeben`);
 
-// Shared by the contact form (field validation) and /api/contact (server validation)
 export const contactFields = {
 	abrechnungInteresse: z.boolean(),
 	abrechnungsvolumen: optionalText(100),
@@ -20,7 +19,6 @@ export const contactFields = {
 		.trim()
 		.min(1, "Name ist erforderlich")
 		.max(200, "Bitte maximal 200 Zeichen eingeben")
-		// Line breaks would end up in the e-mail subject
 		.transform((value) => value.replace(/\s+/g, " ")),
 	ort: optionalText(100),
 	plz: optionalText(10),
