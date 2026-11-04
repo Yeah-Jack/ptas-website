@@ -20,6 +20,7 @@ Monorepo for [ptas.de](https://ptas.de) and [taxiware.de](https://taxiware.de).
 - **shadcn/ui** - Reusable UI components
 - **Turborepo** - Task orchestration and caching across the apps
 - **Biome** - Linting and formatting
+- **Vitest** - Unit and component tests with React Testing Library
 
 ## Getting Started
 
@@ -52,6 +53,7 @@ bunx turbo run dev --filter=ptas   # only one app
 - `bun run build`: Build all apps for production
 - `bun run start`: Build (if needed) and start all apps in production mode
 - `bun run check-types`: Type check all workspaces
+- `bun run test`: Run all tests with Vitest (`bun run test:watch` for watch mode)
 - `bun run lint`: Run Biome formatting and linting
 
 ## Adding a shadcn Component

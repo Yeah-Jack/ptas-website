@@ -12,7 +12,9 @@
 		"check-types": "turbo run check-types",
 		"dev": "turbo run dev",
 		"lint": "biome check --write .",
-		"start": "turbo run start"
+		"start": "turbo run start",
+		"test": "turbo run test",
+		"test:watch": "turbo run test:watch"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.5.15",

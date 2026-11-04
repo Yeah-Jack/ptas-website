@@ -36,6 +36,7 @@ bun run dev                            # Start both dev servers (3000 and 3001)
 bunx turbo run dev --filter=ptas       # Start a single app
 bun run build                          # Build all apps (cached by Turborepo)
 bun run check-types                    # Type check all workspaces
+bun run test                           # Run tests with Vitest (not `bun test`, that is Bun's own runner)
 bun run lint                           # Format & lint with Biome (auto-fix)
 ```
 
@@ -66,6 +67,15 @@ import { cn } from "@repo/ui/lib/utils";
 - HTML lang attribute: `de`
 - Route names in German (e.g., `/abrechnung`, `/vorfinanzierung`)
 
+## Testing
+
+- Vitest with React Testing Library, configured in `apps/ptas/vitest.config.ts`
+- Test files sit next to the code they test as `*.test.ts` / `*.test.tsx`
+- Tests run in Node by default; component tests start with `// @vitest-environment jsdom`
+- jsdom lacks `IntersectionObserver` and `ResizeObserver` (needed by motion and Radix), so component tests stub them
+- Never send real emails or requests: mock `node-mailjet` in route tests and `fetch` in component tests
+- Watch mode: `bun run test:watch`
+
 ## Adding shadcn Components
 
 Run the CLI from the app that needs the component:
@@ -93,7 +103,7 @@ Each app is its own Azure Static Web App with its own Azure-generated workflow (
 - Don't move the deploy step into a reusable workflow (`workflow_call`), since that changes the workflow named in the token.
 - Shared build steps live in the composite action `.github/actions/build-standalone`. It builds one app with Turborepo and flattens the Next.js standalone output.
 - Each deploy workflow is filtered to paths that affect its app.
-- `ci.yml` lints, type checks and builds everything.
+- `ci.yml` lints, type checks, tests and builds everything.
 
 <!-- BEGIN:nextjs-agent-rules -->
 ## This is NOT the Next.js you know
