@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { Toaster } from "sonner";
+import { Toaster, toast } from "sonner";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import KontaktPage from "./page";
 
@@ -56,6 +56,9 @@ describe("Kontakt page form", () => {
 		fetchMock.mockReset();
 		fetchMock.mockResolvedValue(jsonResponse({ success: true }));
 		sessionStorage.clear();
+		// sonner keeps toasts in a module-level store and replays them into
+		// every new <Toaster />, so clear the previous test's toasts
+		toast.dismiss();
 	});
 
 	it("marks name and email as required", () => {
@@ -198,6 +201,41 @@ describe("Kontakt page form", () => {
 				"Beim Senden der E-Mail ist ein Fehler aufgetreten.",
 			),
 		).toBeInTheDocument();
+		expect(
+			await screen.findByRole("button", { name: "Nachricht senden" }),
+		).toBeEnabled();
+		expect(push).not.toHaveBeenCalled();
+		expect(sessionStorage.getItem("ptas:contact-sent")).toBeNull();
+	});
+
+	it.each([
+		["a network error", () => Promise.reject(new TypeError("Failed to fetch"))],
+		[
+			"an HTML error page",
+			async () =>
+				new Response("<html><body>502 Bad Gateway</body></html>", {
+					headers: { "Content-Type": "text/html" },
+					status: 502,
+				}),
+		],
+		["an error without message", async () => jsonResponse({}, 500)],
+		[
+			"a success status without JSON",
+			async () => new Response("OK", { status: 200 }),
+		],
+	])("shows a German fallback message for %s", async (_, respond) => {
+		fetchMock.mockImplementation(respond);
+		const user = renderPage();
+
+		await fillRequiredFields(user);
+		await user.click(submitButton());
+
+		expect(
+			await screen.findByText(
+				"Die Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder schreiben Sie uns an info@ptas.de.",
+			),
+		).toBeInTheDocument();
+		expect(screen.queryByText(/Failed to fetch|JSON/)).not.toBeInTheDocument();
 		expect(
 			await screen.findByRole("button", { name: "Nachricht senden" }),
 		).toBeEnabled();
