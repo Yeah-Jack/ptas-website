@@ -47,7 +47,7 @@ interface SentMessage {
 	ReplyTo: { Email: string; Name: string };
 	Subject: string;
 	TextPart: string;
-	To: { Email: string; Name: string }[];
+	To: { Email: string; Name?: string }[];
 }
 
 const sentMessage = (): SentMessage => {
@@ -61,6 +61,8 @@ describe("POST /api/contact", () => {
 	beforeEach(() => {
 		vi.stubEnv("MAILJET_APIKEY_PUBLIC", "public-key");
 		vi.stubEnv("MAILJET_APIKEY_PRIVATE", "private-key");
+		// Keep a developer's own setting out of the tests
+		vi.stubEnv("CONTACT_EMAIL_TO", undefined);
 		request.mockResolvedValue({
 			body: {
 				Messages: [
@@ -256,6 +258,62 @@ describe("POST /api/contact", () => {
 			);
 			expect(HTMLPart).toContain("<strong>Aktuelles Problem:</strong> A<br>B");
 			expect(TextPart).toContain("Zusätzliche Nachricht: Zeile 1\nZeile 2");
+		});
+	});
+
+	describe("CONTACT_EMAIL_TO", () => {
+		it("replaces the PTAS inboxes as recipients", async () => {
+			vi.stubEnv("CONTACT_EMAIL_TO", "dev@example.de, second@example.de ");
+
+			const res = await postContact(validInput());
+
+			expect(res.status).toBe(200);
+			const message = sentMessage();
+			expect(message.To).toEqual([
+				{ Email: "dev@example.de" },
+				{ Email: "second@example.de" },
+			]);
+			expect(message.From.Email).toBe("info@ptas.de");
+			expect(message.ReplyTo.Email).toBe("max@example.de");
+		});
+
+		it("falls back to the PTAS inboxes when it is blank", async () => {
+			vi.stubEnv("CONTACT_EMAIL_TO", " , ");
+
+			await postContact(validInput());
+
+			expect(sentMessage().To.map((to) => to.Email)).toEqual([
+				"info@ptas.de",
+				"andre.bartels@ptas.de",
+			]);
+		});
+
+		it("is required in development so test requests never reach PTAS", async () => {
+			const consoleError = vi
+				.spyOn(console, "error")
+				.mockImplementation(() => {});
+			vi.stubEnv("NODE_ENV", "development");
+
+			const res = await postContact(validInput());
+
+			expect(res.status).toBe(500);
+			expect(await res.json()).toEqual({
+				error: "Server-Konfigurationsfehler: E-Mail-Dienst nicht bereit.",
+			});
+			expect(consoleError).toHaveBeenCalledWith(
+				expect.stringContaining("CONTACT_EMAIL_TO missing"),
+			);
+			expect(Mailjet).not.toHaveBeenCalled();
+		});
+
+		it("sends to the override in development", async () => {
+			vi.stubEnv("NODE_ENV", "development");
+			vi.stubEnv("CONTACT_EMAIL_TO", "dev@example.de");
+
+			const res = await postContact(validInput());
+
+			expect(res.status).toBe(200);
+			expect(sentMessage().To).toEqual([{ Email: "dev@example.de" }]);
 		});
 	});
 

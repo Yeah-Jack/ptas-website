@@ -36,6 +36,8 @@ Optionally, install AI coding dependencies:
 apm install
 ```
 
+To test the ptas.de contact form, copy `apps/ptas/.env.example` to `apps/ptas/.env.local`, fill in the Mailjet keys and set `CONTACT_EMAIL_TO` to your own email address, so test requests don't reach the PTAS inboxes.
+
 Then, run the development servers:
 
 ```bash
