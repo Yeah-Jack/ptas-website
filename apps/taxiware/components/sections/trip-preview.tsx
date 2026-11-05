@@ -61,7 +61,7 @@ export default function TripPreview() {
 
 				<div className="relative overflow-hidden rounded-t-xl border border-b-0 bg-card">
 					<div className="flex flex-wrap items-center gap-x-4 gap-y-3 border-b px-4 py-3.5 sm:px-5">
-						<Logo className="[--logo-size:1.5rem]" wordmark={false} />
+						<Logo className="[--logo-size:1.125rem]" />
 						<p className="font-bold text-base" id="trip-preview-title">
 							Fahrten · September 2026
 						</p>
