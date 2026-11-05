@@ -1,9 +1,5 @@
 # PTAS Websites
 
-[![DeepSource](https://app.deepsource.com/gh/Yeah-Jack/ptas.svg/?label=active+issues&show_trend=true&token=n9DpIqjD19HJCYoG1EkI-vBd)](https://app.deepsource.com/gh/Yeah-Jack/ptas/)
-
-<img width="2552" height="1433" alt="Website Screenshot" src="https://github.com/user-attachments/assets/35b4d647-906b-4b37-9613-be78432afd48" />
-
 Monorepo for [ptas.de](https://ptas.de) and [taxiware.de](https://taxiware.de).
 
 | Path            | Description                                        | Dev URL                 |
@@ -36,7 +32,7 @@ Optionally, install AI coding dependencies:
 apm install
 ```
 
-To test the ptas.de contact form, copy `apps/ptas/.env.example` to `apps/ptas/.env.local`, fill in the Mailjet keys and set `CONTACT_EMAIL_TO` to your own email address, so test requests don't reach the PTAS inboxes.
+To test the ptas.de contact form, copy `apps/ptas/.env.example` to `apps/ptas/.env.local`, fill in the Mailjet keys and set `CONTACT_EMAIL_TO` to your own email address.
 
 Then, run the development servers:
 
