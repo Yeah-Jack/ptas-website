@@ -7,8 +7,17 @@ export const alt = ogImage.alt;
 export const size = { height: ogImage.height, width: ogImage.width };
 export const contentType = "image/png";
 
+// Inter as on the site (the built-in font has only one weight), Latin subset
+// from @fontsource/inter 5.1.0, SIL Open Font License (assets/fonts/OFL.txt)
+const font = (file: string) =>
+	readFile(join(process.cwd(), "assets", "fonts", file));
+
 export default async function Image() {
-	const logo = await readFile(join(process.cwd(), "public", "logo-white.svg"));
+	const [logo, interRegular, interBold] = await Promise.all([
+		readFile(join(process.cwd(), "public", "logo-white.svg")),
+		font("inter-latin-400-normal.woff"),
+		font("inter-latin-700-normal.woff"),
+	]);
 	const logoSrc = `data:image/svg+xml;base64,${logo.toString("base64")}`;
 
 	return new ImageResponse(
@@ -18,6 +27,7 @@ export default async function Image() {
 				color: "white",
 				display: "flex",
 				flexDirection: "column",
+				fontFamily: "Inter",
 				height: "100%",
 				justifyContent: "space-between",
 				padding: "72px 80px",
@@ -63,6 +73,12 @@ export default async function Image() {
 				}}
 			/>
 		</div>,
-		size,
+		{
+			...size,
+			fonts: [
+				{ data: interRegular, name: "Inter", style: "normal", weight: 400 },
+				{ data: interBold, name: "Inter", style: "normal", weight: 700 },
+			],
+		},
 	);
 }
