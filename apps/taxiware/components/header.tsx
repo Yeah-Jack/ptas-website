@@ -9,7 +9,10 @@ export default function Header() {
 		<header className="sticky top-0 z-50 border-b bg-white">
 			<div className="mx-auto flex max-w-300 items-center gap-8 px-4 py-3 sm:px-6 lg:py-3.5">
 				<Link className="shrink-0 rounded-sm" href="/">
-					<Logo className="[--logo-size:1.875rem] lg:[--logo-size:2.25rem]" />
+					<Logo
+						className="[--logo-size:1.75rem] lg:[--logo-size:2.125rem]"
+						loading="eager"
+					/>
 				</Link>
 
 				{/* Desktop Navigation */}

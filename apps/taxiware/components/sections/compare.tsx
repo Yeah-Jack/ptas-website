@@ -15,7 +15,7 @@ export default function Compare() {
 			<div className="grid gap-3.5 md:grid-cols-2">
 				<article className="grid content-start gap-3.5 rounded-xl border-2 border-cobalt bg-card p-6 sm:p-7">
 					<h3 className="flex">
-						<Logo className="[--logo-size:2rem]" />
+						<Logo className="[--logo-size:1.625rem]" />
 					</h3>
 					<p className="text-muted-foreground">
 						Sie rechnen selbst ab: Verordnungen erfassen, prüfen und direkt an

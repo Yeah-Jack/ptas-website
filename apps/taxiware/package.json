@@ -7,7 +7,7 @@
 		"build": "next build",
 		"check-types": "tsc --noEmit",
 		"dev": "next dev --port 3001",
-		"start": "cp -R .next/static .next/standalone/apps/taxiware/.next/ && PORT=3001 node .next/standalone/apps/taxiware/server.js"
+		"start": "cp -R .next/static .next/standalone/apps/taxiware/.next/ && cp -R public .next/standalone/apps/taxiware/ && PORT=3001 node .next/standalone/apps/taxiware/server.js"
 	},
 	"dependencies": {
 		"@repo/ui": "workspace:*",
