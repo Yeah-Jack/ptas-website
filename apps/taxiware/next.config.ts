@@ -21,16 +21,7 @@ const nextConfig: NextConfig = {
 	output: "standalone",
 	poweredByHeader: false,
 	reactCompiler: true,
-	async redirects() {
-		return [
-			{
-				destination: "https://taxiware.de/:path*",
-				has: [{ type: "host", value: "www.taxiware.de" }],
-				permanent: true,
-				source: "/:path*",
-			},
-		];
-	},
+	// The www redirect is in proxy.ts, see there for why
 	typedRoutes: true,
 };
 
