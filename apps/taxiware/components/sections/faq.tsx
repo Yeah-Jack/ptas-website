@@ -1,4 +1,5 @@
 import { ChevronDown } from "lucide-react";
+import { JsonLd } from "@/components/json-ld";
 import { SectionTitle } from "@/components/section-heading";
 
 // Draft answers from the design system, still awaiting approval
@@ -18,12 +19,23 @@ const faqs = [
 	},
 ] as const;
 
+const faqPage = {
+	"@context": "https://schema.org",
+	"@type": "FAQPage",
+	mainEntity: faqs.map(({ answer, question }) => ({
+		"@type": "Question",
+		acceptedAnswer: { "@type": "Answer", text: answer },
+		name: question,
+	})),
+};
+
 export default function Faq() {
 	return (
 		<section
 			className="mx-auto grid max-w-300 gap-6 px-4 pt-14 sm:px-6 lg:pt-24"
 			id="faq"
 		>
+			<JsonLd data={faqPage} />
 			<SectionTitle>Häufige Fragen</SectionTitle>
 
 			{/* Details elements sharing a name open one at a time */}
