@@ -4,23 +4,15 @@ import { Note } from "@/components/note";
 import { Eyebrow, SectionTitle } from "@/components/section-heading";
 import { StatusBadge } from "@/components/status-badge";
 
-// Stands in for photos from daily operations, which don't exist yet
-function PhotoPlaceholder({ children }: { children: React.ReactNode }) {
-	return (
-		<div
-			aria-hidden="true"
-			className="grid aspect-video place-items-center rounded-[10px] border-2 border-dashed p-3 text-center text-[0.8125rem] text-muted-foreground leading-normal"
-		>
-			{children}
-		</div>
-	);
-}
-
+// Small product snippets; photos from daily operations can replace them later
 const steps = [
 	{
 		icon: FileText,
 		media: (
-			<PhotoPlaceholder>Foto: Transportschein in der Hand</PhotoPlaceholder>
+			<Note>
+				<strong className="block">Fahrt 12.09. · H. Weber</strong>
+				Kriftel → Klinikum Frankfurt-Höchst
+			</Note>
 		),
 		text: "Sie erfassen den Transportschein mit allen Angaben der Verordnung.",
 		tile: "bg-cobalt text-white",
@@ -53,9 +45,11 @@ const steps = [
 	{
 		icon: Wallet,
 		media: (
-			<PhotoPlaceholder>
-				Foto: kleines Büro, Zahlungseingang am Bildschirm
-			</PhotoPlaceholder>
+			<div className="flex flex-wrap gap-2">
+				<StatusBadge tone="success">Bezahlt</StatusBadge>
+				<StatusBadge>Offen</StatusBadge>
+				<StatusBadge tone="error">Abgesetzt</StatusBadge>
+			</div>
 		),
 		text: "Sie sehen jederzeit, welche Fahrten bezahlt, offen oder abgesetzt sind.",
 		tile: "bg-taxi text-ink",

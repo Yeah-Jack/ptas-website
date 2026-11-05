@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ctaHref, loginHref, sectionLinks } from "@/lib/links";
+import { ctaHref, sectionLinks } from "@/lib/links";
 import { BrandButton } from "./brand-button";
 import { Logo } from "./logo";
 import { MobileNav } from "./mobile-nav";
@@ -32,12 +32,6 @@ export default function Header() {
 				</nav>
 
 				<div className="ml-auto flex items-center gap-3 lg:gap-8">
-					<a
-						className="hidden font-semibold text-base transition-colors hover:text-cobalt lg:inline"
-						href={loginHref}
-					>
-						Login
-					</a>
 					<BrandButton asChild className="hidden sm:inline-flex">
 						<Link href={ctaHref}>Jetzt ausprobieren</Link>
 					</BrandButton>

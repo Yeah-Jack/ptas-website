@@ -17,6 +17,3 @@ export const callbackHref = "/kontakt?anliegen=rueckruf";
  * that exist; switch its links to next/link when the page is added.
  */
 export const datenschutzHref = "/datenschutz";
-
-/** Login doesn't exist yet; its link stays hidden until there is an app URL */
-export const loginHref = "/login";
