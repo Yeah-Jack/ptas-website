@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { BrandButton } from "@/components/brand-button";
 import { Logo } from "@/components/logo";
@@ -29,7 +30,16 @@ export default function Compare() {
 				</article>
 
 				<article className="grid content-start gap-3.5 rounded-xl border bg-card p-6 sm:p-7">
-					<h3 className="font-semibold text-[1.375rem] leading-8">PTAS</h3>
+					<h3 className="flex">
+						<Image
+							alt="PTAS"
+							className="block h-8 w-auto shrink-0"
+							height={783}
+							src="/ptas-logo.svg"
+							unoptimized
+							width={1606}
+						/>
+					</h3>
 					<p className="text-muted-foreground">
 						PTAS rechnet Ihre Krankenfahrten für Sie ab.
 					</p>
