@@ -3,7 +3,7 @@
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { ctaHref, pendingLinks, sectionLinks } from "@/lib/links";
+import { ctaHref, loginHref, sectionLinks } from "@/lib/links";
 import { BrandButton } from "./brand-button";
 
 export function MobileNav() {
@@ -43,7 +43,7 @@ export function MobileNav() {
 					))}
 					<a
 						className="rounded-lg px-3 py-3 font-semibold text-lg transition-colors hover:bg-cobalt-50"
-						href={pendingLinks.login}
+						href={loginHref}
 					>
 						Login
 					</a>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ctaHref, pendingLinks, sectionLinks } from "@/lib/links";
+import { ctaHref, loginHref, sectionLinks } from "@/lib/links";
 import { BrandButton } from "./brand-button";
 import { Logo } from "./logo";
 import { MobileNav } from "./mobile-nav";
@@ -34,7 +34,7 @@ export default function Header() {
 				<div className="ml-auto flex items-center gap-3 lg:gap-8">
 					<a
 						className="hidden font-semibold text-base transition-colors hover:text-cobalt lg:inline"
-						href={pendingLinks.login}
+						href={loginHref}
 					>
 						Login
 					</a>
