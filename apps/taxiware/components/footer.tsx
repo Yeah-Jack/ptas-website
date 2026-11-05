@@ -1,14 +1,11 @@
 import Link from "next/link";
-import { ctaHref, pendingLinks } from "@/lib/links";
+import { contact } from "@/lib/contact";
+import { callbackHref, ctaHref, datenschutzHref } from "@/lib/links";
 import { BrandButton } from "./brand-button";
 import { Logo } from "./logo";
 import { SectionTitle } from "./section-heading";
 
-const legalLinks = [
-	{ href: pendingLinks.impressum, label: "Impressum" },
-	{ href: pendingLinks.datenschutz, label: "Datenschutz" },
-	{ href: ctaHref, label: "Kontakt" },
-] as const;
+const legalLinkClass = "transition-colors hover:text-white";
 
 export default function Footer() {
 	return (
@@ -24,10 +21,27 @@ export default function Footer() {
 						<p className="text-on-ink-muted">
 							Testen Sie TaxiWare mit Ihren eigenen Fahrten.
 						</p>
+						<p className="flex flex-wrap gap-x-2.5 gap-y-1 text-on-ink-muted">
+							<a
+								className="font-semibold text-white underline-offset-3 hover:underline"
+								href={contact.phone.href}
+							>
+								{contact.phone.display}
+							</a>
+							<span aria-hidden="true">·</span>
+							<a
+								className="font-semibold text-white underline-offset-3 hover:underline"
+								href={`mailto:${contact.email}`}
+							>
+								{contact.email}
+							</a>
+							<span aria-hidden="true">·</span>
+							<span>{contact.hours}</span>
+						</p>
 					</div>
 					<div className="grid gap-3 sm:flex">
 						<BrandButton asChild variant="onBlue">
-							<Link href={ctaHref}>Rückruf anfordern</Link>
+							<Link href={callbackHref}>Rückruf anfordern</Link>
 						</BrandButton>
 						<BrandButton asChild>
 							<Link href={ctaHref}>Jetzt ausprobieren</Link>
@@ -41,15 +55,15 @@ export default function Footer() {
 						<span>Ein Produkt der Daniel Software GmbH</span>
 					</div>
 					<nav aria-label="Rechtliches" className="flex gap-5">
-						{legalLinks.map(({ href, label }) => (
-							<a
-								className="transition-colors hover:text-white"
-								href={href}
-								key={label}
-							>
-								{label}
-							</a>
-						))}
+						<Link className={legalLinkClass} href="/impressum">
+							Impressum
+						</Link>
+						<a className={legalLinkClass} href={datenschutzHref}>
+							Datenschutz
+						</a>
+						<Link className={legalLinkClass} href="/kontakt">
+							Kontakt
+						</Link>
 					</nav>
 				</div>
 			</div>

@@ -5,15 +5,15 @@ export const sectionLinks = [
 	{ href: "/#faq", label: "FAQ" },
 ] as const;
 
-/**
- * There is no form for trials and callbacks yet, so every call to action
- * leads to the closing CTA in the footer (as in the design prototype).
- */
-export const ctaHref = "/#kontakt";
+/** "Jetzt ausprobieren" */
+export const ctaHref = "/kontakt";
 
-/** Login and legal pages don't exist yet; these are their planned paths. */
-export const pendingLinks = {
-	datenschutz: "/datenschutz",
-	impressum: "/impressum",
-	login: "/login",
-} as const;
+/** "Rückruf anfordern": the form opens with a callback preselected */
+export const callbackHref = "/kontakt?anliegen=rueckruf";
+
+/**
+ * The privacy page ships once its text is generated in dsgvoschutzteam.
+ * Until then this is a plain href, since typed routes only accept pages
+ * that exist; switch its links to next/link when the page is added.
+ */
+export const datenschutzHref = "/datenschutz";

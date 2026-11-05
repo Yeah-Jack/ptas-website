@@ -3,7 +3,7 @@ import { BrandButton } from "@/components/brand-button";
 import { RouteLine } from "@/components/route-line";
 import TripPreview from "@/components/sections/trip-preview";
 import { Sign } from "@/components/sign";
-import { ctaHref } from "@/lib/links";
+import { callbackHref, ctaHref } from "@/lib/links";
 
 export default function Hero() {
 	return (
@@ -30,7 +30,7 @@ export default function Hero() {
 							<Link href={ctaHref}>Jetzt ausprobieren</Link>
 						</BrandButton>
 						<BrandButton asChild variant="onBlue">
-							<Link href={ctaHref}>Rückruf anfordern</Link>
+							<Link href={callbackHref}>Rückruf anfordern</Link>
 						</BrandButton>
 					</div>
 				</div>

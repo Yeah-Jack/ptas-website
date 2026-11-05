@@ -1,9 +1,44 @@
+import { Check } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { BrandButton } from "@/components/brand-button";
 import { Logo } from "@/components/logo";
 import { SectionTitle } from "@/components/section-heading";
 import { TextLink } from "@/components/text-link";
+import { ctaHref } from "@/lib/links";
+
+// Only facts already on taxiware.de and ptas.de
+const fits = {
+	ptas: [
+		"die Abrechnung komplett abgeben wollen",
+		"Ihre Verordnungen lieber an PTAS schicken",
+		"Ihr Geld mit Vorfinanzierung schneller auf dem Konto haben möchten",
+	],
+	taxiware: [
+		"selbst mit den Kostenträgern abrechnen wollen",
+		"Verordnungen im eigenen Betrieb erfassen",
+		"monatlich kündbar bleiben möchten",
+	],
+};
+
+function FitList({ items }: { items: string[] }) {
+	return (
+		<div className="grid gap-2">
+			<p className="font-semibold text-base">Passt zu Ihnen, wenn Sie …</p>
+			<ul className="grid gap-1.5 text-base">
+				{items.map((item) => (
+					<li className="flex gap-2.5" key={item}>
+						<Check
+							aria-hidden="true"
+							className="mt-1 size-4.5 shrink-0 text-ok"
+						/>
+						{item}
+					</li>
+				))}
+			</ul>
+		</div>
+	);
+}
 
 export default function Compare() {
 	return (
@@ -22,9 +57,10 @@ export default function Compare() {
 						Sie rechnen selbst ab: Verordnungen erfassen, prüfen und direkt an
 						die Kostenträger übermitteln.
 					</p>
-					<div>
+					<FitList items={fits.taxiware} />
+					<div className="pt-1">
 						<BrandButton asChild>
-							<Link href="/#preise">Preise ansehen</Link>
+							<Link href={ctaHref}>Jetzt ausprobieren</Link>
 						</BrandButton>
 					</div>
 				</article>
@@ -43,7 +79,8 @@ export default function Compare() {
 					<p className="text-muted-foreground">
 						PTAS rechnet Ihre Krankenfahrten für Sie ab.
 					</p>
-					<div>
+					<FitList items={fits.ptas} />
+					<div className="pt-1">
 						<TextLink href="https://ptas.de">Zu ptas.de</TextLink>
 					</div>
 				</article>
