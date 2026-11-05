@@ -15,7 +15,7 @@ export default function Checks() {
 					absetzt. Sie korrigieren die Fahrt und übermitteln erst, wenn alles
 					stimmt.
 				</p>
-				<TextLink href="/#ablauf">Alle Prüfungen ansehen</TextLink>
+				<TextLink href="/#ablauf">So läuft die Abrechnung</TextLink>
 			</div>
 
 			<div className="grid gap-3">
@@ -30,7 +30,7 @@ export default function Checks() {
 				</Note>
 				<Note tone="ok">
 					<strong className="block">3 Fahrten bereit</strong>
-					Datenaustausch nach § 302 SGB V ohne Umweg.
+					Alle Angaben vollständig. Sie können übermitteln.
 				</Note>
 			</div>
 		</section>

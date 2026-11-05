@@ -2,20 +2,37 @@ import { ChevronDown } from "lucide-react";
 import { JsonLd } from "@/components/json-ld";
 import { SectionTitle } from "@/components/section-heading";
 
-// Draft answers from the design system, still awaiting approval
+// Draft answers, still awaiting approval. Only facts already on
+// taxiware.de and ptas.de; the first entry opens by default.
 const faqs = [
+	{
+		answer:
+			"Für Taxi- und Mietwagenunternehmen, Fahrdienste und Krankentransporte, die ihre Krankenfahrten selbst mit den Krankenkassen abrechnen wollen.",
+		question: "Für wen ist TaxiWare gedacht?",
+	},
 	{
 		answer:
 			"§ 302 SGB V regelt die Abrechnung sonstiger Leistungserbringer mit den Krankenkassen, darunter Krankenfahrten. TaxiWare übermittelt die Daten im vorgeschriebenen Datenaustausch (DTA).",
 		question: "Was regelt § 302 SGB V?",
 	},
 	{
+		answer:
+			"Ja, mit Ihren eigenen Fahrten. Schreiben Sie uns über das Kontaktformular oder rufen Sie uns an.",
+		question: "Kann ich TaxiWare testen?",
+	},
+	{
+		answer:
+			"Den Preis für Ihren Betrieb nennen wir Ihnen auf Anfrage. Alle Preise zzgl. MwSt., monatlich kündbar.",
+		question: "Was kostet TaxiWare?",
+	},
+	{
 		answer: "Die Server stehen in Deutschland.",
 		question: "Wo stehen die Server?",
 	},
 	{
-		answer: "Ja. Alle Preise zzgl. MwSt., monatlich kündbar.",
-		question: "Ist TaxiWare monatlich kündbar?",
+		answer:
+			"Mit TaxiWare rechnen Sie selbst ab, das Geld kommt direkt von den Kostenträgern. Wenn Sie es schneller brauchen: PTAS rechnet für Sie ab, und mit der Vorfinanzierung haben Sie Ihr Geld gegen einen geringen Aufpreis schneller auf dem Konto.",
+		question: "Kann ich mir das Geld vorab auszahlen lassen?",
 	},
 ] as const;
 

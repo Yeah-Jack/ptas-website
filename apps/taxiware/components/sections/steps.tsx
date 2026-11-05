@@ -26,7 +26,7 @@ const steps = [
 				Fahrt 12.09. · bitte ergänzen
 			</Note>
 		),
-		text: "Fehlende IK-Nummern und Zuzahlungen fallen auf, bevor die Kasse absetzt.",
+		text: "TaxiWare prüft jede Fahrt auf fehlende Angaben, bevor etwas rausgeht.",
 		tile: "bg-cobalt text-white",
 		title: "Prüfen",
 	},
@@ -38,7 +38,7 @@ const steps = [
 				<StatusBadge tone="success">✓ Server in Deutschland</StatusBadge>
 			</div>
 		),
-		text: "Datenaustausch nach § 302 SGB V ohne Umweg.",
+		text: "Fertige Fahrten gehen direkt an die Kostenträger, im Datenaustausch nach § 302 SGB V.",
 		tile: "bg-cobalt text-white",
 		title: "Übermitteln",
 	},
@@ -51,7 +51,7 @@ const steps = [
 				<StatusBadge tone="error">Abgesetzt</StatusBadge>
 			</div>
 		),
-		text: "Sie sehen jederzeit, welche Fahrten bezahlt, offen oder abgesetzt sind.",
+		text: "Die Kasse zahlt, und Sie sehen für jede Fahrt, ob das Geld da ist.",
 		tile: "bg-taxi text-ink",
 		title: "Geld auf dem Konto",
 	},
