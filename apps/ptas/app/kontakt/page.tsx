@@ -23,6 +23,32 @@ import { FadeInUp } from "@/components/animations/fade-in-up";
 import { markContactSent } from "@/components/conversion-tracker";
 import { type ContactFormValues, contactFields } from "@/lib/contact-schema";
 
+const SEND_ERROR =
+	"Die Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder schreiben Sie uns an info@ptas.de.";
+
+// Only the API's own error messages are shown. Network errors and error pages
+// that are not JSON (e.g. from Azure or a proxy) would otherwise surface the
+// browser's English message, such as "Failed to fetch".
+async function sendContactRequest(value: ContactFormValues) {
+	let res: Response;
+	try {
+		res = await fetch("/api/contact", {
+			body: JSON.stringify(value),
+			headers: { "Content-Type": "application/json" },
+			method: "POST",
+		});
+	} catch {
+		throw new Error(SEND_ERROR);
+	}
+
+	const data: { error?: unknown } | null = await res.json().catch(() => null);
+	if (!res.ok || !data) {
+		throw new Error(
+			typeof data?.error === "string" && data.error ? data.error : SEND_ERROR,
+		);
+	}
+}
+
 function FieldError({ field }: { field: AnyFieldApi }) {
 	if (field.state.meta.isValid) {
 		return null;
@@ -61,20 +87,10 @@ export default function KontaktPage() {
 	const form = useForm({
 		defaultValues,
 		onSubmit: async ({ value }) => {
-			const promise = fetch("/api/contact", {
-				body: JSON.stringify(value),
-				headers: { "Content-Type": "application/json" },
-				method: "POST",
-			}).then(async (res) => {
-				if (!res.ok) {
-					const error = await res.json();
-					throw new Error(error.error || "Fehler beim Senden");
-				}
-				return res.json();
-			});
+			const promise = sendContactRequest(value);
 
 			toast.promise(promise, {
-				error: (err) => err.message || "Es ist ein Fehler aufgetreten.",
+				error: (err) => (err instanceof Error && err.message) || SEND_ERROR,
 				loading: "Nachricht wird gesendet...",
 				success: "Nachricht erfolgreich gesendet!",
 			});

@@ -1,5 +1,7 @@
 version = 1
 
+test_patterns = ["apps/**/*.test.ts", "apps/**/*.test.tsx"]
+
 [[analyzers]]
 name = "javascript"
 

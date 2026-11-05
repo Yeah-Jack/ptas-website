@@ -22,6 +22,26 @@ const escapeHtml = (value: string) =>
 const orDash = (value: string) => value || "-";
 const yesNo = (value: boolean) => (value ? "Ja" : "Nein");
 
+const DEFAULT_RECIPIENTS = [
+	{ Email: "info@ptas.de", Name: "PTAS Info" },
+	{ Email: "andre.bartels@ptas.de", Name: "Andre Bartels" },
+];
+
+// CONTACT_EMAIL_TO (comma-separated) replaces the recipients, e.g. with your
+// own address in .env.local so test requests don't reach the PTAS inboxes
+const overrideRecipients = () =>
+	(process.env.CONTACT_EMAIL_TO ?? "")
+		.split(",")
+		.map((address) => address.trim())
+		.filter(Boolean)
+		.map((address) => ({ Email: address }));
+
+const configError = () =>
+	NextResponse.json(
+		{ error: "Server-Konfigurationsfehler: E-Mail-Dienst nicht bereit." },
+		{ status: 500 },
+	);
+
 export async function POST(req: Request) {
 	let body: unknown;
 	try {
@@ -50,10 +70,15 @@ export async function POST(req: Request) {
 
 	if (!publicKey || !privateKey) {
 		console.error("Mailjet env vars missing.");
-		return NextResponse.json(
-			{ error: "Server-Konfigurationsfehler: E-Mail-Dienst nicht bereit." },
-			{ status: 500 },
+		return configError();
+	}
+
+	const override = overrideRecipients();
+	if (override.length === 0 && process.env.NODE_ENV === "development") {
+		console.error(
+			"CONTACT_EMAIL_TO missing: set it in apps/ptas/.env.local so test requests don't go to info@ptas.de and sales.",
 		);
+		return configError();
 	}
 
 	const rows: [label: string, value: string][] = [
@@ -101,10 +126,7 @@ export async function POST(req: Request) {
 					ReplyTo: { Email: data.email, Name: data.name },
 					Subject: `Neue Kontaktanfrage von ${data.name}`,
 					TextPart: textContent,
-					To: [
-						{ Email: "info@ptas.de", Name: "PTAS Info" },
-						{ Email: "andre.bartels@ptas.de", Name: "Andre Bartels" },
-					],
+					To: override.length > 0 ? override : DEFAULT_RECIPIENTS,
 				},
 			],
 		});
