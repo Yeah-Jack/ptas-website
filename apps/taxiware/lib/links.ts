@@ -1,4 +1,5 @@
 export const sectionLinks = [
+	{ href: "/#funktionen", label: "Funktionen" },
 	{ href: "/#ablauf", label: "So geht’s" },
 	{ href: "/#preise", label: "Preise" },
 	{ href: "/#vergleich", label: "TaxiWare oder PTAS" },

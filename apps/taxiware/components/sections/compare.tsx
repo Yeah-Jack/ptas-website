@@ -6,8 +6,9 @@ import { Logo } from "@/components/logo";
 import { SectionTitle } from "@/components/section-heading";
 import { TextLink } from "@/components/text-link";
 import { ctaHref } from "@/lib/links";
+import { minimumTermMonths } from "@/lib/pricing";
 
-// Only facts already on taxiware.de and ptas.de
+// Only facts already on taxiware.de and ptas.de or in the TaxiWare price flyer
 const fits = {
 	ptas: [
 		"die Abrechnung komplett abgeben wollen",
@@ -16,8 +17,8 @@ const fits = {
 	],
 	taxiware: [
 		"selbst mit den Kostenträgern abrechnen wollen",
-		"Verordnungen im eigenen Betrieb erfassen",
-		"monatlich kündbar bleiben möchten",
+		"Verordnungen per Scan-App im eigenen Betrieb erfassen",
+		`mit nur ${minimumTermMonths} Monaten Mindestlaufzeit starten möchten`,
 	],
 };
 

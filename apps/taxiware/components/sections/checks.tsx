@@ -11,9 +11,10 @@ export default function Checks() {
 					Fehler finden Sie, bevor die Kasse sie findet
 				</SectionTitle>
 				<p className="max-w-[52ch] text-muted-foreground">
-					Fehlende IK-Nummern und Zuzahlungen fallen auf, bevor die Kasse
-					absetzt. Sie korrigieren die Fahrt und übermitteln erst, wenn alles
-					stimmt.
+					Ab dem Paket Professional prüft der Kontroll-Bot jeden Beleg vor dem
+					Versand. Fehlende IK-Nummern und Zuzahlungen fallen auf, bevor die
+					Kasse absetzt. Sie korrigieren die Fahrt und übermitteln erst, wenn
+					alles stimmt.
 				</p>
 				<TextLink href="/#ablauf">So läuft die Abrechnung</TextLink>
 			</div>

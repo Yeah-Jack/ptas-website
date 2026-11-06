@@ -1,9 +1,21 @@
 import { ChevronDown } from "lucide-react";
 import { JsonLd } from "@/components/json-ld";
 import { SectionTitle } from "@/components/section-heading";
+import { formatWholeEuro } from "@/lib/format";
+import {
+	includedScans,
+	minimumTermMonths,
+	noticePeriodMonths,
+	packages,
+} from "@/lib/pricing";
+
+const packagePrices = packages.map(
+	({ monthlyFee, name }) => `${name} für ${formatWholeEuro(monthlyFee)}`,
+);
 
 // Draft answers, still awaiting approval. Only facts already on
-// taxiware.de and ptas.de; the first entry opens by default.
+// taxiware.de and ptas.de or in the TaxiWare price flyer; the first
+// entry opens by default.
 const faqs = [
 	{
 		answer:
@@ -21,9 +33,12 @@ const faqs = [
 		question: "Kann ich TaxiWare testen?",
 	},
 	{
-		answer:
-			"Den Preis für Ihren Betrieb nennen wir Ihnen auf Anfrage. Alle Preise zzgl. MwSt., monatlich kündbar.",
+		answer: `Es gibt drei Pakete: ${packagePrices.slice(0, -1).join(", ")} und ${packagePrices.at(-1)} im Monat, alle Preise zzgl. MwSt. In der Grundgebühr ist ein monatliches Abrechnungsvolumen enthalten, für das Volumen darüber zahlen Sie einen Anteil der Brutto-Rechnungssumme. ${includedScans} Scans sind in jedem Paket inklusive, Benutzer unbegrenzt.`,
 		question: "Was kostet TaxiWare?",
+	},
+	{
+		answer: `Die Mindestlaufzeit beträgt ${minimumTermMonths} Monate. Danach können Sie monatlich mit ${noticePeriodMonths} Monaten Frist kündigen.`,
+		question: "Wie lange läuft der Vertrag?",
 	},
 	{
 		answer: "Die Server stehen in Deutschland.",

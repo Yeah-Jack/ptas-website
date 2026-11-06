@@ -14,9 +14,9 @@ const steps = [
 				Kriftel → Klinikum Frankfurt-Höchst
 			</Note>
 		),
-		text: "Sie erfassen den Transportschein mit allen Angaben der Verordnung.",
+		text: "Sie fotografieren Verordnung und Fahrbeleg mit der Scan-App. Die KI liest die Daten aus und legt die Fahrt an.",
 		tile: "bg-cobalt text-white",
-		title: "Verordnung erfassen",
+		title: "Verordnung scannen",
 	},
 	{
 		icon: SearchCheck,
@@ -26,7 +26,7 @@ const steps = [
 				Fahrt 12.09. · bitte ergänzen
 			</Note>
 		),
-		text: "TaxiWare prüft jede Fahrt auf fehlende Angaben, bevor etwas rausgeht.",
+		text: "Sie prüfen die Fahrt und geben sie frei. Ab Professional prüft der Kontroll-Bot jeden Beleg, bevor etwas rausgeht.",
 		tile: "bg-cobalt text-white",
 		title: "Prüfen",
 	},
@@ -51,7 +51,7 @@ const steps = [
 				<StatusBadge tone="error">Abgesetzt</StatusBadge>
 			</div>
 		),
-		text: "Die Kasse zahlt, und Sie sehen für jede Fahrt, ob das Geld da ist.",
+		text: "Die Kasse zahlt, und Sie sehen für jede Fahrt, ob das Geld da ist. Rückläufer bearbeiten Sie direkt in TaxiWare.",
 		tile: "bg-taxi text-ink",
 		title: "Geld auf dem Konto",
 	},
