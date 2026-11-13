@@ -314,7 +314,7 @@ export default function Home() {
 						{/* Social Proof */}
 						<p className="mt-2 font-medium text-muted-foreground text-sm">
 							<strong className="font-semibold text-foreground">
-								Über 100 Unternehmen
+								Über 200 Unternehmen
 							</strong>{" "}
 							deutschlandweit vertrauen uns
 						</p>
