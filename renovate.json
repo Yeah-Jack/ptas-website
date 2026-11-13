@@ -9,5 +9,30 @@
 	"vulnerabilityAlerts": {
 		"addLabels": ["security"],
 		"enabled": true
-	}
+	},
+	"packageRules": [
+				{
+			"description": "Majors need approval in the Dependency Dashboard.",
+			"matchUpdateTypes": [
+				"major"
+			],
+			"dependencyDashboardApproval": true,
+			"addLabels": [
+				"major-update"
+			]
+		},
+			{
+			"description": "All digest updates arrive in one PR that Renovate merges itself at night once CI is green. Digests carry no release timestamp, so under the default timestamp-required minimumReleaseAge would hold them forever.",
+			"matchUpdateTypes": [
+				"digest"
+			],
+			"groupName": "digests",
+			"minimumReleaseAgeBehaviour": "timestamp-optional",
+			"automerge": true,
+			"platformAutomerge": false,
+			"automergeSchedule": [
+				"* 0-5 * * *"
+			]
+		}
+	]
 }
