@@ -65,6 +65,7 @@ coverage
 
 # AI
 .agents
+.claude
 apm_modules/
 
 # Misc

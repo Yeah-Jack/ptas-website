@@ -6,18 +6,33 @@ author: Yeah Jack
 # Resolution order: --target flag > this field > auto-detect from filesystem.
 # Accepted values: agent-skills, antigravity, claude, codex, copilot, cursor, gemini, grok-build, hermes, kiro, opencode, vscode, windsurf
 targets:
-  - copilot
+  - agent-skills
+  - claude
 dependencies:
   apm:
     - anthropics/skills/skills/frontend-design
     - anthropics/skills/skills/theme-factory
     - shadcn-ui/ui/skills/shadcn
     - vercel-labs/agent-skills
+    # The plugin covers skills/engineering and skills/productivity.
     - mattpocock/skills
+    # skills/in-progress and skills/misc are not in the plugin, so list each skill.
+    - mattpocock/skills/skills/in-progress/chief-of-staff
+    - mattpocock/skills/skills/in-progress/claude-handoff
+    - mattpocock/skills/skills/in-progress/loop-me
+    - mattpocock/skills/skills/in-progress/setup-ts-deep-modules
+    - mattpocock/skills/skills/in-progress/writing-beats
+    - mattpocock/skills/skills/in-progress/writing-fragments
+    - mattpocock/skills/skills/in-progress/writing-shape
+    - mattpocock/skills/skills/misc/git-guardrails-claude-code
+    - mattpocock/skills/skills/misc/migrate-to-shoehorn
+    - mattpocock/skills/skills/misc/scaffold-exercises
+    - mattpocock/skills/skills/misc/setup-pre-commit
     - coreyhaines31/marketingskills
     - ibelick/ui-skills
     - nextlevelbuilder/ui-ux-pro-max-skill
     - vercel/turborepo/skills/turborepo
+    - vercel/turborepo/skills/add
   mcp: []
 includes: auto
 scripts: {}
