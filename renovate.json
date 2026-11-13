@@ -3,36 +3,28 @@
 	"extends": ["config:best-practices", "group:allNonMajor"],
 	"labels": ["dependencies"],
 	"minimumReleaseAge": "3 days",
+	"packageRules": [
+		{
+			"addLabels": ["major-update"],
+			"dependencyDashboardApproval": true,
+			"description": "Majors need approval in the Dependency Dashboard.",
+			"matchUpdateTypes": ["major"]
+		},
+		{
+			"automerge": true,
+			"automergeSchedule": ["* 0-5 * * *"],
+			"description": "All digest updates arrive in one PR that Renovate merges itself at night once CI is green. Digests carry no release timestamp, so under the default timestamp-required minimumReleaseAge would hold them forever.",
+			"groupName": "digests",
+			"matchUpdateTypes": ["digest"],
+			"minimumReleaseAgeBehaviour": "timestamp-optional",
+			"platformAutomerge": false
+		}
+	],
 	"schedule": ["* 0-8 * * 1"],
 	"separateMultipleMajor": true,
 	"timezone": "Europe/Berlin",
 	"vulnerabilityAlerts": {
 		"addLabels": ["security"],
 		"enabled": true
-	},
-	"packageRules": [
-				{
-			"description": "Majors need approval in the Dependency Dashboard.",
-			"matchUpdateTypes": [
-				"major"
-			],
-			"dependencyDashboardApproval": true,
-			"addLabels": [
-				"major-update"
-			]
-		},
-			{
-			"description": "All digest updates arrive in one PR that Renovate merges itself at night once CI is green. Digests carry no release timestamp, so under the default timestamp-required minimumReleaseAge would hold them forever.",
-			"matchUpdateTypes": [
-				"digest"
-			],
-			"groupName": "digests",
-			"minimumReleaseAgeBehaviour": "timestamp-optional",
-			"automerge": true,
-			"platformAutomerge": false,
-			"automergeSchedule": [
-				"* 0-5 * * *"
-			]
-		}
-	]
+	}
 }
