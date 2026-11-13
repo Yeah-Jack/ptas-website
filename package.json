@@ -17,9 +17,9 @@
 		"test:watch": "turbo run test:watch"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.6.7",
-		"lefthook": "2.2.2",
-		"turbo": "2.11.11"
+		"@biomejs/biome": "2.5.15",
+		"lefthook": "2.1.16",
+		"turbo": "2.11.5"
 	},
 	"packageManager": "bun@1.4.2",
 	"devEngines": {
