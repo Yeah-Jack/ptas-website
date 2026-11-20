@@ -7,7 +7,6 @@ author: Yeah Jack
 # Accepted values: agent-skills, antigravity, claude, codex, copilot, cursor, gemini, grok-build, hermes, kiro, opencode, vscode, windsurf
 targets:
   - agent-skills
-  - claude
 dependencies:
   apm:
     - anthropics/skills/skills/frontend-design
